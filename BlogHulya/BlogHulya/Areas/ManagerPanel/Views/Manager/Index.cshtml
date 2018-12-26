@@ -1,0 +1,33 @@
+﻿@using BlogHulya.Models
+@using GridMvc.Html
+@model IEnumerable<Note>
+@{
+    ViewBag.Title = "Notlar";
+}
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+
+
+    </div>
+</div>
+
+<br /><br />
+
+<div>
+    @Html.Grid(Model).Columns(col =>
+{
+    col.Add(x => x.Title).Titled("Başlık").Sortable(true);
+    col.Add(x => x.Description).Titled("Açıklama").Sortable(true);
+    col.Add(x => x.Category.Title).Titled("Kategori").Filterable(true).Sortable(true);
+    col.Add(x => x.Member.Name).Titled("Yazar").Filterable(true).Sortable(true);
+    col.Add(x => x.StarPoint).Titled("Puan").Sortable(true);
+
+}).WithPaging(5).SetLanguage("tr")
+</div>
+
+

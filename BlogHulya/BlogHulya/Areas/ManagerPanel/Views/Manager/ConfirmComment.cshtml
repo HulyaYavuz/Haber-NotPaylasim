@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BlogHulya.Models.Comment>
+
+@{
+    ViewBag.Title = "Yorum Onayla";
+}
+
+<h2>CYorum Onayla</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Yorum")
+        </th>
+        <th>
+            @Html.DisplayName("Durumu")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsChecked)
+            </td>
+            <td>
+                @if (item.IsChecked == false)
+                {
+                    <button type="button" onclick="ConfirmCom('@Url.Action("Confirm",new { id = item.Id})')" class="btn btn-success">Onayla</button>
+                }
+                <button type="button" onclick="DeleteCom('@Url.Action("Delete",new { id = item.Id})')" class="btn btn-danger">Sil</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script>
+    function DeleteCom(url) {
+        if (confirm("Silmek istediğinize emin misiniz?")) {
+            location.href = url;
+        }
+    }
+    function ConfirmCom(url) {
+        if (confirm("Yorum onaylanıyor")) {
+            location.href = url;
+        }
+    }
+</script>

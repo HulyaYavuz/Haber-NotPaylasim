@@ -1,0 +1,41 @@
+﻿@using GridMvc.Html
+@model IEnumerable<BlogHulya.Models.Member>
+
+@{
+    ViewBag.Title = "AddToRole";
+}
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+<h2>Rol Ekle</h2>
+
+<div>
+    @Html.Grid(Model).Columns(col =>
+{
+    col.Add(x => x.Name).Titled("Ad").Sortable(true).SetWidth(30);
+    col.Add(x => x.Surname).Titled("Soyad").Sortable(true).SetWidth(30);
+    col.Add(x => x.Email).Titled("Açıklama").Sortable(true).SetWidth(30);
+    col.Add(x => x.Password).Titled("Kategori").Filterable(true).Sortable(true).SetWidth(30);
+    col.Add(x => x.MemberType).Titled("Yazar").Filterable(true).Sortable(true).SetWidth(30);
+
+    col.Add().Encoded(false).Sanitized(false).RenderValueAs(html =>
+    {
+        string htmlStr = "<a href='/ManagerPanel/Manager/EditRole/" + html.Id.ToString() +"'class='btn btn-info'><span class= 'glyphicon glyphicon-edit'></span>Rol Ekle</a>";
+        return MvcHtmlString.Create(htmlStr);
+    }).SetWidth(25);
+
+    col.Add().Encoded(false).Sanitized(false).RenderValueAs(html =>
+    {
+        string htmlStr = "<a href='/ManagerPanel/Manager/Delete/" + html.Id.ToString() + "'class='btn btn-danger'><span class= 'glyphicon glyphicon-remove'></span>Sil</a>";
+        return MvcHtmlString.Create(htmlStr);
+    }).SetWidth(25);
+
+
+}).WithPaging(5)
+</div>
+
+
+
+
+

@@ -1,0 +1,69 @@
+﻿@using GridMvc.Html
+@model IEnumerable<BlogHulya.Models.Note>
+
+@{
+    ViewBag.Title = "Not Ekle";
+}
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<script src="~/Scripts/bootstrap-datepicker.js"></script>
+
+<h2>NOTLAR </h2>
+<p>
+    @Html.ActionLink("Yeni Not", "Edit")
+</p>
+<br />
+<div>
+    @Html.Grid(Model).Columns(col =>
+{
+    col.Add(x => x.Title).Titled("Başlık").Sortable(true);
+    col.Add(x => x.Description).Titled("Açıklama").Sortable(true);
+    col.Add(x => x.Category.Title).Titled("Kategori").Filterable(true).Sortable(true);
+    col.Add(x => x.Member.Name).Titled("Yazar").Filterable(true).Sortable(true);
+    col.Add(x => x.StarPoint).Titled("Puan").Sortable(true);
+
+    col.Add().Encoded(false).Sanitized(false).RenderValueAs(html =>
+    {
+        string htmlStr = "<a href='/ManagerPanel/Manager/Edit/" + html.Id.ToString() +"'class='btn btn-warning'><span class= 'glyphicon glyphicon-edit'></span>Düzenle</a>";
+        return MvcHtmlString.Create(htmlStr);
+    }).SetWidth(25);
+
+    col.Add().Encoded(false).Sanitized(false).RenderValueAs(html =>
+    {
+        string htmlStr = "<a href='/ManagerPanel/Manager/Delete/" + html.Id.ToString() + "'class='btn btn-danger'><span class= 'glyphicon glyphicon-remove'></span>Sil</a>";
+        return MvcHtmlString.Create(htmlStr);
+    }).SetWidth(25);
+
+
+}).WithPaging(5)
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            @*<td>
+                <a href="@Url.Action("Edit",new { id = item.Id})" class="btn btn-info">Düzenle</a> <br /><br />
+                <button type="button" onclick="DeleteNote('@Url.Action("Delete",new { id = item.Id})')" class="btn btn-danger">Sil</button>
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    function DeleteNote(url) {
+        if (confirm("Silmek istediğinize emin misiniz?")) {
+            location.href = url;
+        }
+    }
+</script>*@
